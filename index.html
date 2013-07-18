@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<link href="css/organigram.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="infoPanel" class="hidden"></div>
+		<div id="content"></div>
+		<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="lib/underscore-1.4.4.min.js"></script>
+		<script type="text/javascript" src="microformats/json/organigram.js"></script>
+		<script>
+			(function () {
+                phOrganigram = new Organigram(organigramData);
+				orgaHTML = phOrganigram.render(phOrganigram.data,98,0,false);
+				$("#content").append(orgaHTML);
+				phOrganigram.activeClicks();
+            }());
+
+		</script>
+	</body>
+</html>
