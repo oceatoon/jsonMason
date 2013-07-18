@@ -81,16 +81,21 @@ Organigram = function(data){
 		$.each(json, function(key, val){
 			//html += "<div class='block' style='width:"+width+"%; background-color:grey;'>"+key;
 			
-			classLi = '';
+			classLi = (typeof val == "object" ) ? 'clickable' : '';
+			
 			html += '<li id="child'+lvl+childCount+'" class="'+classLi+'">'+key;
+			html += '</li>';
 			if(typeof val == "object" ){
+				//builds recursivly 
 				html += self.render(val,width,lvl+""+childCount,true);
+				
+				//post building helps bind click events to objects
 				self.clickIds.push({"parent" : "child"+lvl+childCount,
 									"open" : "lvl"+lvl+""+childCount});
 			}
 			else
 				html += " " +val;
-			html += '</li>';
+			
 			childCount++;
 			//html += "</div>";
 		});
@@ -101,7 +106,13 @@ Organigram = function(data){
 	};
 	this.activeClicks = function(){
 		$.each(self.clickIds, function(i, link){
-			$("#"+link.parent).click(function(){$("#"+link.open).slideDown()})
+			$("#"+link.parent).click(function(){
+				$(".active").removeClass("active");
+				$(this).addClass("active");
+				$("#"+link.open).slideToggle();
+				log("found siblings",$("#"+link.open).siblings().length);
+				//$("#"+link.open).siblings().addClass("hidden");
+			})
 		});
 		
 	}

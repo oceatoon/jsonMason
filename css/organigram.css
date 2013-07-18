@@ -1,2 +1,12 @@
 .hidden{display:none}
-.block{border-right:2px solid white;float:left;height:100%;font-size:5em;text-align:center;display:table-cell;vertical-align:middle;}
+.block{
+	border-right:2px solid white;
+    float:left;
+	height:100%;
+	font-size:50px;
+	text-align:center;
+	display:table-cell;
+	vertical-align:middle;
+}
+.clickable{cursor:pointer;color:red}
+.active{background-color:grey}
