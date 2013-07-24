@@ -1,12 +1,98 @@
+/*
+ * bleu clair: #3FB0FC
+ * bleu foncé : #485872
+ * jaune : #E7F500
+ * rose : #E72E4C
+ * blanc : #ECECEC
+ * */
+@font-face
+{
+font-family: Homestead;
+src: url('./Homestead/Homestead-Inline.ttf');
+}
+body{
+	padding:0px;
+	margin:0px;
+	font-family:"Homestead";
+}
 .hidden{display:none}
+.fl{float:left}
+.txt{
+	font-size:50px;
+    width: 100%;
+	text-align: center;
+	vertical-align: middle;
+    cursor:pointer;
+	
+}
+.txt2{
+	background:#E7F500 url('./toilette.png') top right repeat;
+}
+.topblock{
+	overflow: hidden; 
+    position: relative;
+    display: table; 
+    position: static;
+    text-align:center;
+}
+.topblock div{
+    border:1px solid #E72E4C;
+    display: table-cell; 
+    vertical-align: middle; 
+    width: 100%; 
+    position: static;
+}
 .block{
-	border-right:2px solid white;
+	width : 49%;
+	border-right:2px solid #E72E4C;
     float:left;
 	height:100%;
-	font-size:50px;
+}
+.blockHovered{
+	background:#ECECEC url('./toilette.png') top right repeat;
+	color:#E72E4C;
+}
+.blockSelected{
+    background:#485872 url('./toile.png') top right repeat;
+	color:#E7F500;
+	/*opacity:0.6;*/
+}
+ul{
+	list-style:none;  
+	padding:0px;
+    margin:0px;
+	background-color:white;
+}
+li{
+	overflow: hidden; 
+	position: relative;
+	display: table; 
+	position: static;
 	text-align:center;
+}
+li div {
+	border:1px solid #E72E4C;
+    display: table-cell; 
+	vertical-align: middle; 
+	width: 100%; 
+	position: static;
+}
+li a {
 	display:table-cell;
-	vertical-align:middle;
+	width:100%;
+	color:grey;
+	vertical-align: middle;
+	background-color:white;
 }
 .clickable{cursor:pointer;color:red}
-.active{background-color:grey}
+.active{background-color:grey; font-size:2em}
+
+.debug{
+	border : 1px solid red;
+}
+/*
+.door1{background-color : grey}
+.door1Selected{background-color : red}
+.door1Hover{background-color : pink}
+
+.door2{background-color:orange}*/

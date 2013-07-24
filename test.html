@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <link href="css/organigram.css" rel="stylesheet" type="text/css" />
+		<link href="lib/flippant.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="lib/flippant.min.js"></script>
+		
+		<style type="text/css">
+        #outer {height: 40%; overflow: hidden; position: relative;display: table; position: static;text-align:center}
+        #middle {display: table-cell; vertical-align: middle; width: 100%; position: static;}
+        
+        
+    </style>
+    </head>
+    <body>
+    	<ul>
+    		<li id="outer">
+			    <div id="middle" class="flippant">
+		            any text<br>
+		            <b>any height</b><br>
+		            any content, for example generated from DB<br>
+		            everything is vertically centered<br>
+					<input type="button" id="coco" value="coco"/>
+			    </div>
+				<div id="back" class="hidden">
+				     <h1>I'm the back!</h1>
+					 <input type='button' class='kiki' value='kiki'/>
+				</div>
+		    </li>
+		</ul>
+		<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="lib/flippant.min.js"></script>
+		<script>
+			var back;
+			$("#coco").click(function(){
+		      back = flippant.flip($('#middle')[0], $('#back').html());
+			  $(".kiki").click(function(){
+	              back.close();
+	            });
+			});
+			
+			
+		</script>
+    </body>
+</html>
