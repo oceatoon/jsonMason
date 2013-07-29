@@ -22,6 +22,7 @@
 		            any content, for example generated from DB<br>
 		            everything is vertically centered<br>
 					<input type="button" id="coco" value="coco"/>
+					
 			    </div>
 				<div id="back" class="hidden">
 				     <h1>I'm the back!</h1>
@@ -29,17 +30,29 @@
 				</div>
 		    </li>
 		</ul>
+		<a id="one" href="#">One</a>
+        <a id="two" href="#">Two</a>
 		<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
         <script type="text/javascript" src="lib/flippant.min.js"></script>
 		<script>
 			var back;
+			var json = {coco:"titu",dede:{titi:this.coco},test:function(){alert('test')}};
 			$("#coco").click(function(){
 		      back = flippant.flip($('#middle')[0], $('#back').html());
-			  $(".kiki").click(function(){
+			  $(".kiki").click( function(){
 	              back.close();
 	            });
 			});
+			var tmp = json.test;
+            json.test = function(source){
+                console.log("pre test");
+                tmp(source);
+                console.log("post test");
+            };
+				
+			$("#one").click(json.test);
+			$("#two").click(json.test);
 			
 			
 		</script>
