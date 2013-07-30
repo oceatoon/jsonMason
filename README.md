@@ -2,6 +2,14 @@ jsonMason
 =========
 
 build a menu, viewer and visualisation of Json defined content
+- coming soon : Demo company hierarchy
+
+Features 
+------------
+- reuse content using node referencing or aliasing
+- Deep Linking using Jquery-Address
+- build content dynamically Templating and Ajax loading 
+- infinite depth and recursivity allows, non constrained levels of content
 
 Structure 
 ------------
