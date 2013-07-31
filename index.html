@@ -16,7 +16,7 @@
 		<script type="text/javascript" src="lib/flippant.min.js"></script>
 		<script type="text/javascript" src="lib/underscore-1.4.4.min.js"></script>
 		<script type="text/javascript" src="js/organigramData.js"></script>
-		<script type="text/javascript" src="js/organigram.js"></script>
+		<script type="text/javascript" src="js/jsonMason.js"></script>
 		<script>
 			(function () {
 				phOrganigram = new Organigram(organigramData);
@@ -32,7 +32,9 @@
                 }).internalChange(function(event) {
 	                log('internalChange: "' + event.value + '"');
 	            }).bind('externalChange', {msg: 'The value of the event is "{value}".'}, function(event) {
-	                if(phOrganigram.activateIdsActions[event.value])
+	                if(event.value == "")
+					   activate("door1","door2",null);
+					else if(phOrganigram.activateIdsActions[event.value])
 					   phOrganigram.activateIdsActions[event.value]();
 					else
 					   log("not found "+event.value+" nothing to apply ");   
