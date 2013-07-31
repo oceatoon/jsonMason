@@ -13,14 +13,18 @@ function dir(){
 Organigram = function(data){
 	
 	var self = this;
-	this.clickIds = {};
-	this.clickIdsBreadCrumb = [];
-	this.openIdsBreadCrumb = [];
-	this.buildIds = [];
-	this.data = data;
+	this.data = data;//holds the data source json content
 	this.currentlyOpen = null;
-	this.back = null;
+	this.back = null;//html used for the flippant functionality
 	this.showLog = true;
+	
+	this.clickIds = {};//during the render process we gather id to events to bind them post rendering
+	this.clickIdsBreadCrumb = [];//whenever an id is click it is added into this array 
+	this.activateIdsActions = {};//id to activate function relation 
+	this.openIdsBreadCrumb = [];//whenever an id is open it is added to this array, and removed when closed
+	this.buildIds = []; //list of all ids build during the rendering process
+	this.idsTree = {}; //represents all the ids in a json form or tree like structure, representing parent child relations
+	
 	/**
 	 * build the HTML code dynamically 
 	 * based on the json desicption file in our first use case organigramData
@@ -36,12 +40,13 @@ Organigram = function(data){
 				if(showLog)log("level1", key);
 				//build first level doors
 				if(key == "menu"){
-					html += self.renderMenu(val);
+					html += self.renderMenu("menuChild",val.open.list);
 					html += "<div class='clear'></div>";
 				}
 				else{
 					html += "<div id='"+key+"' class='txt block topblock w49p '><div>"+val.content.toUpperCase()+"</div></div>";
 					self.buildIds.push(key);
+					self.idsTree[key] = {};
 					self.clickIds[key] = val.system.events;
 					if(val.open)
 						html += self.renderChildrenRecursively(2,key,val);
@@ -51,7 +56,7 @@ Organigram = function(data){
 		});
 		return html;
 	};
-	this.renderChildrenRecursively = function(lvl,id,node)
+	this.renderChildrenRecursively = function(lvl,parentid,node)
 	{
 		var htmlLvl = "";
 		var htmlLvlChildren = "";
@@ -61,19 +66,28 @@ Organigram = function(data){
 			if(showLog)log( "level "+lvl,node );
 			if(node.open.list)
 			{ // content is a list
-				if(showLog)log( "level "+lvl,node,"Children count = ", _.size(node.open.list));
+				if(showLog)log( "level "+lvl,"parentid",parentid,node,"Children count = ", _.size(node.open.list));
 				var classList = "hidden block"; 
-				htmlLvl +="<div class='"+classList+"' id='"+id+"Child'><ul>";
-				self.buildIds.push(id+"Child");
+				htmlLvl +="<div class='"+classList+"' id='"+parentid+"Child'><ul>";
+				self.buildIds.push(parentid+"Child");
+				if(!self.idsTree[parentid])
+					self.idsTree[parentid]={}; 
+				self.idsTree[parentid][parentid+"Child"] = [];
 				var heightLii = 100/_.size(node.open.list);
 				
 				$.each(node.open.list, function(kii, vii)
 				{
 					if(showLog)log("level"+lvl ,kii,vii);
-					//reference alias 
-					id = kii ;
+					//referenced node or node aliasing
+					if(typeof vii == "string" && vii.indexOf("data.")==0)
+					{
+						id = parentid+"_"+kii;
+						vii = eval("phOrganigram.data."+vii);
+					} else
+						id = kii;
 					if(vii.system && vii.system.events)
-						self.clickIds[kii] = vii.system.events;
+						self.clickIds[id] = vii.system.events;
+					self.idsTree[parentid][parentid+"Child"].push(id);
 					var style = "style='height:"+heightLii+"%'";
 					htmlLvl+="<li id='"+id+"' "+style+" class='txt txt2'><div>";
 					label = (vii.content) ? vii.content.toUpperCase(): kii.toUpperCase() ;
@@ -84,6 +98,37 @@ Organigram = function(data){
 				});
 				htmlLvl += "</ul></div>"+htmlLvlChildren;
 			}
+			else if(node.open.template && node.open.template.name != undefined)
+			{
+				//the content will be build dynamicaly using a template as base code 
+				if(node.system && node.system.events)
+					self.clickIds[id] = node.system.events;
+				
+				//get the template.html from file
+				var content = (node.open.content ) ? node.open.content : id ;
+				$.ajax(
+				{
+				    type: 'GET',
+				    async: false,
+				    url:  'templates/'+node.open.template.name+'.html',
+				    success: function(data) 
+				    {
+				    	content = nano(data,node.open.template.data );
+				    	if(node.open.template.data.headerLinks)
+				    		content = self.renderMenu("headerMenu"+node.system.id,node.open.template.data.headerLinks)+content;
+				    	if(node.open.template.data.footerLinks)
+				    		content = content+self.renderMenu("footerMenu"+node.system.id,node.open.template.data.footerLinks);
+				    }
+				  });
+				// content is a final html block
+				if(showLog)log( "level "+lvl,node,"Leaf",node.system.id+"Child",content );
+				htmlLvl += "<div class='hidden block' id='"+node.system.id+"Child'>"+content;
+				self.buildIds.push(node.system.id+"Child");
+				if(!self.idsTree[parentid])
+					self.idsTree[parentid]={}; 
+				self.idsTree[parentid][node.system.id+"Child"] = {};
+				htmlLvl += "</div>";
+			}
 			else
 			{
 				
@@ -91,11 +136,13 @@ Organigram = function(data){
 					self.clickIds[id] = node.system.events;
 				
 				// content is a final html block
-				var content = (node.open.content ) ? node.open.content : id ;
 				if(showLog)log( "level "+lvl,node,"Leaf",node.system.id+"Child",content );
 				htmlLvl += "<div class='hidden block' id='"+node.system.id+"Child'>"+content;
 				self.buildIds.push(node.system.id+"Child");
-				if(node.open.system.editable)
+				if(!self.idsTree[parentid])
+					self.idsTree[parentid]={}; 
+				self.idsTree[parentid][node.system.id+"Child"] = {};
+				if(node.open.system && node.open.system.editable)
 					htmlLvl += "<div class='edit'><a href='javascript:alert(\"Edit "+id+"_Leaf\")'>Edit</a></div>";
 				htmlLvl += "</div>";
 			}
@@ -104,29 +151,28 @@ Organigram = function(data){
 			if(showLog)log("renderChildrenRecursively",id,htmlLvl);
 		return htmlLvl;
 	}
-	this.renderMenu = function(node)
+	this.renderMenu = function(id,list)
 	{
-		if(self.showLog)log("renderMenu");
-		var html = "";
-		if(node.open && node.system)
+		//if(self.showLog)log("renderMenu",id,'count',_.size(list));
+		var html ="<div class='' id='"+id+"'><ul>";
+		var width = 100/_.size(list);
+		var style = "style='width:"+width+"%'";
+		$.each(list, function(kii, vii)
 		{
-			if(node.open.list){ 
-				html +="<div class='' id='menuChild'><ul>";
-				var width = 100/_.size(node.open.list);
-				var style = "style='width:"+width+"%'";
-				$.each(node.open.list, function(kii, vii)
-				{
-					id = kii ;
-					if(vii.system && vii.system.events)
-						self.clickIds[kii] = vii.system.events;
-					html+="<li id='"+id+"' "+style+" class='clickable'><div "+style+">";
-					label = (vii.content) ? vii.content.toUpperCase(): kii.toUpperCase() ;
-					html+=label;
-					html+="</div></li>";
-				});
-				html += "</ul></div>";
-			}
-		}
+			id = kii ;
+			var url = "";
+			if(vii.system && vii.system.events)
+				self.clickIds[kii] = vii.system.events;
+			else
+				url = vii.url;
+			html+="<li id='"+id+"' "+style+" class='clickable menuLi'><div "+style+">";
+			label = (vii.content) ? vii.content.toUpperCase(): kii.toUpperCase() ;
+			if(url!='')
+				label = "<a href='"+url+"' target='_blank'>"+label+"</a>";
+			html+=label;
+			html+="</div></li>";
+		});
+		html += "</ul></div>";
 		return html;
 	}
 	/**
@@ -159,6 +205,7 @@ Organigram = function(data){
 						//continue on to execute the json description click code
 						tmpClick(source);
 						
+						$.address.value(key);  
 						//manage genericaly selected css
 						$(".blockSelected").removeClass('blockSelected');
 						if(!$(this).hasClass('blockSelected') )
@@ -197,9 +244,24 @@ Organigram = function(data){
 					$(this).removeClass('blockHovered');
 				});
 			}
+			//BUG : marche pas qd bg color set in css
+			if(events.onActivate)
+			{
+				if(!self.activateIdsActions[key])
+					self.activateIdsActions[key] = events.onActivate;
+			}
 		});
 		
 	}
 };
+/* Nano Templates (Tomasz Mazur, Jacek Becela) */
+
+function nano(template, data) {
+  return template.replace(/\{([\w\.]*)\}/g, function(str, key) {
+    var keys = key.split("."), v = data[keys.shift()];
+    for (var i = 0, l = keys.length; i < l; i++) v = v[keys[i]];
+    return (typeof v !== "undefined" && v !== null) ? v : "";
+  });
+}
 
 

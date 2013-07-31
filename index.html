@@ -11,6 +11,7 @@
 		<div style="clear:both"></div>
 		
 		<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="lib/jquery.address-1.6.min.js?strict=false&wrap=true"></script>
 		<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="lib/flippant.min.js"></script>
 		<script type="text/javascript" src="lib/underscore-1.4.4.min.js"></script>
@@ -18,14 +19,26 @@
 		<script type="text/javascript" src="js/organigram.js"></script>
 		<script>
 			(function () {
-                phOrganigram = new Organigram(organigramData);
+				phOrganigram = new Organigram(organigramData);
 				orgaHTML = phOrganigram.render(phOrganigram.data);
 				$("#content").append(orgaHTML);
 				phOrganigram.activeElements();
 				log("-----------------------------");
 				dir(self.clickIds);
+				
+				//history jquery pluggin
+				$.address.change(function(event) {  
+                    log("log",event.value);
+                }).internalChange(function(event) {
+	                log('internalChange: "' + event.value + '"');
+	            }).bind('externalChange', {msg: 'The value of the event is "{value}".'}, function(event) {
+	                if(phOrganigram.activateIdsActions[event.value])
+					   phOrganigram.activateIdsActions[event.value]();
+					else
+					   log("not found "+event.value+" nothing to apply ");   
+	            });
+				
             }());
-
 		</script>
 	</body>
 </html>

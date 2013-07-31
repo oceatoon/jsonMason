@@ -101,12 +101,12 @@ li a:visited {
     color:#242C79;
 }
 
-#menuChild li {
+.menuLi {
 	font-size:1.5em;
 	display:inline;
 	float:left;
 }
-#menuChild li div{
+.menuLi div{
     border:1px solid #242C79;
     display: table-cell; 
     vertical-align: middle; 

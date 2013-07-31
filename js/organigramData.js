@@ -72,11 +72,17 @@
 						}
 					}
 				},
+				
+*
+*WISHLIST : 
+* ajax nodes > build nodes on demand instead of onload 
+* CMs edit nodes, back into the data tree 
+* integrate external source into mages like a WP blog				
 */
 var organigramData = {
 	"data":{
 		"people":{
-			"jlo":{
+			"fliptest":{
 				"content":"Jeremy Loreau",
 				"data":{
 					"name":"Jeremy Loreau",
@@ -88,87 +94,227 @@ var organigramData = {
 						"onclick":function(){
 							genericFlip(organigramData.data.people.jlo.data);
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","graphistesChild",null);
+						}
+					}
+				}
+			},
+			"jlo":
+			{
+				"content":"Jeremy Loreau",
+				"system":{
+					"id":"jlo",
+					"events":{
+						"onclick":function(){
+							genericOpenClose2("door2Child","jloChild");
+						},
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","jloChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name" : "Jeremy Loreau",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}
+						}
 					}
 				}
 			},
 			"jgo":{
 				"content":"Jerome Gonthier",
-				"data":{
-					"name":"Jerome Gonthier",
-					"txt":"blablhablab<br/>lablalbabla<br/>",
-					"img":"img/ECOLO.png"
-				},
 				"system":{
+					"id":"jgo",
 					"events":{
 						"onclick":function(){
-							genericFlip(organigramData.data.people.jgo.data);
+							genericOpenClose2("door2Child","jgoChild");
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","jgoChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name":"Jerome Gonthier",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}	
+						}
 					}
 				}
 			},
 			"kla":{
 				"content":"Kevin Lainé",
-				"data":{
-					"name":"Kevin Lainé",
-					"txt":"blablhablab<br/>lablalbabla<br/>",
-					"img":"img/SMILEY.png"
-				},
 				"system":{
+					"id":"kla",
 					"events":{
 						"onclick":function(){
-							genericFlip(organigramData.data.people.kla.data);
+							genericOpenClose2("door2Child","klaChild");
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","klaChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name":"Kevin Lainé",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}	
+						}
 					}
 				}
 			},
 			"slo":{
 				"content":"Stephanie Lorente",
-				"data":{
-					"name":"Stephanie Lorente",
-					"txt":"blablhablab<br/>lablalbabla<br/>",
-					"img":"img/SLO.png"
-				},
 				"system":{
+					"id":"slo",
 					"events":{
 						"onclick":function(){
-							genericFlip(organigramData.data.people.slo.data);
+							genericOpenClose2("door2Child","sloChild");
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","sloChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name":"Stephanie Lorente",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}	
+						}
 					}
 				}
 			},
 			"sba":{
 				"content":"Sylvain Barbot",
-				"data":{
-					"name":"Sylvain Barbot",
-					"txt":"blablhablab<br/>lablalbabla<br/>",
-					"img":"img/PEACE2.png"
-				},
 				"system":{
+					"id":"sba",
 					"events":{
 						"onclick":function(){
-							genericFlip(organigramData.data.people.sba.data);
+							genericOpenClose2("door2Child","sbaChild");
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","sbaChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name":"Sylvain Barbot",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}	
+						}
 					}
 				}
 			},
 			"tka":{
 				"content":"Tibor Katelbach",
-				"data":{
-					"name":"Tibor Katelbach",
-					"txt":"blablhablab<br/>lablalbabla<br/>",
-					"img":"img/TKA.png"
-				},
 				"system":{
+					"id":"tka",
 					"events":{
-						"onclick":function(){log("flip it");
-							genericFlip(organigramData.data.people.tka.data);
+						"onclick":function(){
+							genericOpenClose2("door2Child","tkaChild");
 						},
-						"onhover":function(){}
+						"onhover":function(){},
+						"onActivate":function(){
+							activate("door2Child","tkaChild",null);
+						}
+					}
+				},
+				"open":{
+					"template":{
+						"name":"titleAndText",
+						"data":{
+							"name":"Tibor Katelbach",
+							"txt" : 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus',
+							"headerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							},
+							"footerLinks" : {
+								"site":{"url":"toto.org"},
+								"mail":{"url":"toto@to.org"},
+								"facebook":{"url":"toto.org"},
+								"twitter":{"url":"twotter.org"}
+							}	
+						}
 					}
 				}
 			}
@@ -182,8 +328,9 @@ var organigramData = {
 				"onclick":function(){
 					genericOpenClose2("door2","door1Child");
 				},
-				"onhover":function(){
-					
+				"onhover":function(){},
+				"onActivate":function(){
+					activate("door1","door1Child","door1");
 				}
 			}
 		},
@@ -226,7 +373,10 @@ var organigramData = {
 				"onclick":function(){
 					genericOpenClose2("door1","door2Child");
 				},
-				"onhover":function(){}
+				"onhover":function(){},
+				"onActivate":function(){
+					activate("door2","door2Child","door2");
+				}
 			}
 		},
 		"open":{
@@ -242,7 +392,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","benevolesChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","benevolesChild","benevoles");
+							}
 						}
 					},
 					"open":{
@@ -263,7 +416,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","graphistesChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","graphistesChild","graphistes");
+							}
 						}
 					},
 					"open":{
@@ -281,7 +437,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","developpementChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","developpementChild","developpement");
+							}
 						}
 					},
 					"open":{
@@ -298,7 +457,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","drhChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","drhChild","drh");
+							}
 						}
 					},
 					"open":{
@@ -317,7 +479,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","administratifChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","administratifChild","administratif");
+							}
 						}
 					},
 					"open":{
@@ -333,7 +498,10 @@ var organigramData = {
 							"onclick":function(){
 								genericOpenClose2("door2","recrutonsChild");
 							},
-							"onhover":function(){}
+							"onhover":function(){},
+							"onActivate":function(){
+								activate("door2Child","recrutonsChild","recrutons");
+							}
 						}
 					},
 					"open":{
@@ -362,9 +530,12 @@ function closeAll(){
 			$( "#"+key ).hide();
 	});
 }
-function activate(panel1, panel2){
+function activate(panel1, panel2,selectedId){
+	$(".blockSelected").removeClass('blockSelected');
 	closeAll();
 	$( "#"+panel1 ).slideDown();
+	if(selectedId)
+		$( "#"+selectedId ).addClass('blockSelected');
 	phOrganigram.openIdsBreadCrumb.unshift(panel1);
 	$( "#"+panel2 ).slideDown();
 	phOrganigram.openIdsBreadCrumb.unshift(panel2);
@@ -376,6 +547,12 @@ function activate(panel1, panel2){
  * @returns
  */
 function genericOpenClose2(parentId,openId){
+	if(phOrganigram.back != null){
+		phOrganigram.back.close();
+		phOrganigram.back=null;
+		// closing the currently flipped element
+		$("#"+phOrganigram.clickIdsBreadCrumb[0]).removeClass('blockSelected');
+	}
 	log("genericOpenClose2",parentId,openId);
 	if($("#"+openId).length == 0)
 			alert(openId+" doesn't exist");
