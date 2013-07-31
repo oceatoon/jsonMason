@@ -2,7 +2,8 @@ jsonMason
 =========
 
 build a menu, viewer and visualisation of Json defined content
-- coming soon : Demo company hierarchy
+- [Demo company hierarchy](http://www.pixelhumain.com/annuaire/)
+- [Demo dimploma options / hierarchy](http://www.pixelhumain.com/annuaire/iloi.html)
 
 Features 
 ------------
